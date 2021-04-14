@@ -1,10 +1,16 @@
 // these are all the error types for this file
+// implemetning failues create
+use failure::*;
 
-#[derive(Debug)]
+
+#[derive(Debug,Fail)]
 pub enum TransactionError{
+    #[fail(display="Could not load file: {:?}", 0)]
     LoadError(std::io::Error),
+    #[fail(display="Could not parse file: {:?}", 0)]
     ParseError(serde_json::Error),
     // static method ensures this is live throughout lifetime of program
+    #[fail(display="Error: {:?}", 0)]
     Mess(&'static str),
 }
 

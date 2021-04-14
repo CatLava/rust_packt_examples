@@ -28,15 +28,18 @@ pub fn get_transactions(fname: &str) -> Result<Vec<Transaction>, String> {
 }
 
 // using an Option in this function, similar to the result Enum
-pub fn get_first_transaction_for(fname: &str, uname: &str ) -> Option<Transaction> {
+pub fn get_first_transaction_for(fname: &str, uname: &str ) ->
+ Result<Transaction, failure::Error> {
     // question mark at the end will know how to handle options
-    let trans = get_transactions_b(fname).ok()?;
+    let trans = get_transactions_b(fname)?;
     for t in trans {
         if t.from == uname {
-            return Some(t);
+            return Ok(t);
         }
     }
-    None
+    Err(TransactionError::Mess("Could not find transaction name")
+        .into())
+
 }
 // This does exact the same thing as above, mapping and error handling
 // Converting to an option, what is an option?
