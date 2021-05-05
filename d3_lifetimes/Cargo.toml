@@ -23,4 +23,13 @@ path="src/v3_rc.rs"
 name="v4_channels"
 path="src/v4_channels.rs"
 
+[[bin]]
+name="v5_pool"
+path="src/v5_pool.rs"
+
+[[bin]]
+name="v6_rayon"
+path="src/v6_rayon.rs"
+
 [dependencies]
+rayon="1.5"

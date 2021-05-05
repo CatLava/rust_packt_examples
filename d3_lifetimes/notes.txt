@@ -1,0 +1,11 @@
+purpose of lifetimes in rust is to stop anyone from accessing a
+pointer after is has been dropped
+
+
+A box is a pointer owned by the variable
+
+An item is typically dropped at the scope {}
+
+Rc allows multiple references to the same data on the same thread.
+
+MPSC - multiple producer single consumer
