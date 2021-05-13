@@ -4,18 +4,20 @@ use std::fmt::Display;
 
 #[derive(Debug,PartialEq)]
 pub enum Property {
-    Simple(&' static str, String),
-    Style(&' static str,String),
+    Simple(&'static str, String),
+    Style(&'static str, String),
     Transform(String),
 }
 
 //svg is similar to html
 // Building this out for test cases
+#[derive(Debug, PartialEq)]
 pub struct SvgTag{
     pub kind: &'static str,
     pub properties:Vec<Property>,
     pub children: Vec<SvgTag>,
 }
+
 
 impl SvgTag{
     pub fn new(kind:&'static str)->Self{
@@ -60,16 +62,33 @@ impl SvgTag{
 
 #[cfg(test)]
 mod tests {
-    use Super::*;
+    use super::*;
+    use super::Property::*;
     #[test]
     fn it_works() {
         let a = SvgTag::new("svg")
             .w("60px")
             .h("80px")
             .child(SvgTag::new("rect").x(5).y(5).w(50).h(20));
-        let b = SvgTag{}
+        let b = SvgTag{
+            kind: "svg",
+            properties: vec![
+                Simple("width", "60px".to_string()),
+                Simple("height", "80px".to_string()),
+            ],
+            children: vec![SvgTag {
+                kind: "rect",
+                children: Vec::new(),
+                properties: vec![
+                    Simple("x", "5".to_string()),
+                    Simple("y", "5".to_string()),
+                    Simple("width", "50".to_string()),
+                    Simple("height", "20".to_string()),
+                ],
+            }],
+        };
 
-        assert_eq!(a);
+        assert_eq!(a,b);
 
     }
 }
